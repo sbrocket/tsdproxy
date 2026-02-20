@@ -42,6 +42,8 @@ jobs:
 
       - name: Get Tailscale version
         run: echo "TAILSCALE_VERSION=$(go list -m tailscale.com | awk '{print $2}')" >> $GITHUB_ENV
+      - name: Get templ version
+        run: echo "TEMPL_VERSION=$(go list -m github.com/a-h/templ | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
@@ -52,3 +54,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAILSCALE_VERSION: ${{ env.TAILSCALE_VERSION }}
+          TEMPL_VERSION: ${{ env.TEMPL_VERSION }}
