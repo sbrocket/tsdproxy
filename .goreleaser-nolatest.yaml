@@ -34,7 +34,6 @@ release:
   name_template: "{{.ProjectName}}-v{{.Version}}"
   mode: replace
   target_commitish: "{{ .Commit }}"
-  discussion_category_name: General
   prerelease: auto
   make_latest: "{{ if .Prerelease }}false{{ else }}true{{ end }}"
 
