@@ -32,12 +32,6 @@ jobs:
         with:
           bun-version: latest
       - uses: sigstore/cosign-installer@v3.7.0
-      - name: dockerhub-login
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: ghcr-login
         if: startsWith(github.ref, 'refs/tags/v')
         uses: docker/login-action@v3
@@ -57,6 +51,4 @@ jobs:
           args: release -f .goreleaser-nolatest.yaml --skip validate --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER_PASSWORD: $${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: $${{ secrets.DOCKER_USERNAME }}
           TAILSCALE_VERSION: ${{ env.TAILSCALE_VERSION }}
