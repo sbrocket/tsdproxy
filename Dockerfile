@@ -10,7 +10,10 @@ WORKDIR /app
 COPY . .
 
 # Compila a aplicação Go
-RUN go mod tidy && CGO_ENABLED=0 GOOS=linux go build -o /tsdproxyd ./cmd/server/main.go
+ARG VERSION=""
+RUN go mod tidy && CGO_ENABLED=0 GOOS=linux go build \
+  -ldflags "-X github.com/almeidapaulopt/tsdproxy/internal/core.version=${VERSION}" \
+  -o /tsdproxyd ./cmd/server/main.go
 RUN CGO_ENABLED=0 GOOS=linux go build -o /healthcheck ./cmd/healthcheck/main.go
 
 
